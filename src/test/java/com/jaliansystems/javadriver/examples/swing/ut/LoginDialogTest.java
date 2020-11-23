@@ -28,11 +28,10 @@ import net.sourceforge.marathon.javadriver.JavaProfile.LaunchType;
 public class LoginDialogTest {
 
 	/*
-	 * Changes: added some variables which are repeatable, set up them in @Before
-	 * annotation, deleted unused imports, changed names of tests, added @DisplayName
-	 * In build.gradle: changed dependencies.
+	 * Changes: added some variables which are repeatable, set up them in @Before annotation, 
+	 * deleted unused imports, changed names of tests, added @DisplayName 
+	 * In build.gradle: changed dependencies. 
 	 * In gradle-wrapper.properties: changed version to: gradle-6.1.1-bin.zip
-	 * 
 	 */
 
 	private LoginDialog login;
@@ -76,8 +75,8 @@ public class LoginDialogTest {
 	@Test
 	@DisplayName("Test successful login")
 	public void testLoginSuccess() {
-		user.sendKeys("bob");		
-		pass.sendKeys("secret");		
+		user.sendKeys("bob");
+		pass.sendKeys("secret");
 		wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
 		loginBtn.click();
 		assertTrue(login.isSucceeded());
@@ -87,7 +86,7 @@ public class LoginDialogTest {
 	@Test
 	@DisplayName("Test cancelled login")
 	public void testLoginCancel() {
-		user.sendKeys("bob");		
+		user.sendKeys("bob");
 		pass.sendKeys("secret");
 		cancelBtn.click();
 		assertFalse(login.isSucceeded());
@@ -96,7 +95,7 @@ public class LoginDialogTest {
 	@Test
 	@DisplayName("Test invalid login")
 	public void testLoginInvalid() throws InterruptedException {
-		user.sendKeys("bob");		
+		user.sendKeys("bob");
 		pass.sendKeys("wrong");
 		wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
 		loginBtn.click();
@@ -106,17 +105,17 @@ public class LoginDialogTest {
 		assertEquals("", user.getText());
 		assertEquals("", pass.getText());
 	}
-	
+
 	// New added test for "clear" button added in UI in LoginDialog class
-	@Test 
-    @DisplayName("Test cleared login")		
-    public void testLoginClear() throws InterruptedException {
-        user.sendKeys("bob");
-        pass.sendKeys("wrong");
-        clearBtn.click(); 
-        assertEquals("", user.getText());
-        assertEquals("", pass.getText());
-    }
+	@Test
+	@DisplayName("Test cleared login")
+	public void testLoginClear() throws InterruptedException {
+		user.sendKeys("bob");
+		pass.sendKeys("wrong");
+		clearBtn.click();
+		assertEquals("", user.getText());
+		assertEquals("", pass.getText());
+	}
 
 	@Test
 	@DisplayName("Test if all text components are associated with tooltip")

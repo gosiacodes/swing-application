@@ -24,197 +24,201 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class LoginDialog extends JFrame {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+	/*
+	 * Changes: added button "clear"
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private JTextField tfUsername;
-    private JPasswordField pfPassword;
-    private JLabel lbUsername;
-    private JLabel lbPassword;
-    private JButton btnLogin;
-    private JButton btnCancel;
-    private JButton btnClear;
-    private boolean succeeded;
+	private JTextField tfUsername;
+	private JPasswordField pfPassword;
+	private JLabel lbUsername;
+	private JLabel lbPassword;
+	private JButton btnLogin;
+	private JButton btnCancel;
+	private JButton btnClear;
+	private boolean succeeded;
 
-    public LoginDialog() {
-        super("Login");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public LoginDialog() {
+		super("Login");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints cs = new GridBagConstraints();
+		JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints cs = new GridBagConstraints();
 
-        cs.fill = GridBagConstraints.HORIZONTAL;
+		cs.fill = GridBagConstraints.HORIZONTAL;
 
-        lbUsername = new JLabel("Username: ");
-        cs.gridx = 0;
-        cs.gridy = 0;
-        cs.gridwidth = 1;
-        panel.add(lbUsername, cs);
+		lbUsername = new JLabel("Username: ");
+		cs.gridx = 0;
+		cs.gridy = 0;
+		cs.gridwidth = 1;
+		panel.add(lbUsername, cs);
 
-        tfUsername = new JTextField(20);
-        tfUsername.setName("username");
-        tfUsername.setToolTipText("Enter user name");
-        cs.gridx = 1;
-        cs.gridy = 0;
-        cs.gridwidth = 2;
-        panel.add(tfUsername, cs);
+		tfUsername = new JTextField(20);
+		tfUsername.setName("username");
+		tfUsername.setToolTipText("Enter user name");
+		cs.gridx = 1;
+		cs.gridy = 0;
+		cs.gridwidth = 2;
+		panel.add(tfUsername, cs);
 
-        lbPassword = new JLabel("Password: ");
-        cs.gridx = 0;
-        cs.gridy = 1;
-        cs.gridwidth = 1;
-        panel.add(lbPassword, cs);
+		lbPassword = new JLabel("Password: ");
+		cs.gridx = 0;
+		cs.gridy = 1;
+		cs.gridwidth = 1;
+		panel.add(lbPassword, cs);
 
-        pfPassword = new JPasswordField(20);
-        pfPassword.setName("password");
-        pfPassword.setToolTipText("Enter password");
-        cs.gridx = 1;
-        cs.gridy = 1;
-        cs.gridwidth = 2;
-        panel.add(pfPassword, cs);
-        panel.setBorder(new LineBorder(Color.GRAY));
+		pfPassword = new JPasswordField(20);
+		pfPassword.setName("password");
+		pfPassword.setToolTipText("Enter password");
+		cs.gridx = 1;
+		cs.gridy = 1;
+		cs.gridwidth = 2;
+		panel.add(pfPassword, cs);
+		panel.setBorder(new LineBorder(Color.GRAY));
 
-        btnLogin = new JButton("Login");
-        btnLogin.setName("login_button");
-        btnLogin.setEnabled(false);
+		btnLogin = new JButton("Login");
+		btnLogin.setName("login_button");
+		btnLogin.setEnabled(false);
 
-        btnLogin.addActionListener(new ActionListener() {
+		btnLogin.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
-                if (authenticate(getUsername(), getPassword())) {
-                    onSuccess();
-                    succeeded = true;
-                    dispose();
-                } else {
-                    onInvalidCredentials();
-                    // reset username and password
-                    tfUsername.setText("");
-                    pfPassword.setText("");
-                    succeeded = false;
-
-                }
-            }
-        });
-        tfUsername.getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                enableLoginButton();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                enableLoginButton();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                enableLoginButton();
-            }
-        });
-        pfPassword.getDocument().addDocumentListener(new DocumentListener() {
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                enableLoginButton();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                enableLoginButton();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                enableLoginButton();
-            }
-        });
-        btnCancel = new JButton("Cancel");
-        btnCancel.setName("cancel_button");
-        btnCancel.addActionListener(new ActionListener() {
-        	@Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                onCancel();
-            }
-        });
-        
-        // New added button "clear"
-        btnClear = new JButton("Clear");
-        btnClear.setName("clear_button");
-        btnClear.addActionListener(new ActionListener() {
-            @Override
 			public void actionPerformed(ActionEvent e) {
-            	tfUsername.setText("");
-                pfPassword.setText("");
-            }
-        });
-        
-        JPanel bp = new JPanel();
-        bp.add(btnLogin);
+				if (authenticate(getUsername(), getPassword())) {
+					onSuccess();
+					succeeded = true;
+					dispose();
+				} else {
+					onInvalidCredentials();
+					// reset username and password
+					tfUsername.setText("");
+					pfPassword.setText("");
+					succeeded = false;
+				}
+			}
+		});
+		
+		tfUsername.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				enableLoginButton();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				enableLoginButton();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				enableLoginButton();
+			}
+		});
+		
+		pfPassword.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				enableLoginButton();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				enableLoginButton();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				enableLoginButton();
+			}
+		});
+		
+		btnCancel = new JButton("Cancel");
+		btnCancel.setName("cancel_button");
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				onCancel();
+			}
+		});
+
+		// New added button "clear"
+		btnClear = new JButton("Clear");
+		btnClear.setName("clear_button");
+		btnClear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tfUsername.setText("");
+				pfPassword.setText("");
+			}
+		});
+
+		JPanel bp = new JPanel();
+		bp.add(btnLogin);
 		bp.add(btnClear);
-        bp.add(btnCancel);
+		bp.add(btnCancel);
 
-        getContentPane().add(panel, BorderLayout.CENTER);
-        getContentPane().add(bp, BorderLayout.PAGE_END);
+		getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(bp, BorderLayout.PAGE_END);
 
-        pack();
-        setResizable(false);
-        setLocationRelativeTo(null);
-    }
+		pack();
+		setResizable(false);
+		setLocationRelativeTo(null);
+	}
 
-    private void enableLoginButton() {
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-            SwingUtilities.invokeLater(
-                    () -> btnLogin.setEnabled(tfUsername.getText().length() > 0 && pfPassword.getPassword().length > 0));
-        }).start();
-        ;
-    }
+	private void enableLoginButton() {
+		new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+			SwingUtilities.invokeLater(() -> btnLogin
+					.setEnabled(tfUsername.getText().length() > 0 && pfPassword.getPassword().length > 0));
+		}).start();
+		;
+	}
 
-    public String getUsername() {
-        return tfUsername.getText().trim();
-    }
+	public String getUsername() {
+		return tfUsername.getText().trim();
+	}
 
-    public String getPassword() {
-        return new String(pfPassword.getPassword());
-    }
+	public String getPassword() {
+		return new String(pfPassword.getPassword());
+	}
 
-    public boolean isSucceeded() {
-        return succeeded;
-    }
-    protected boolean authenticate(String username, String password) {
-    	
-        if (username.equals("bob") && password.equals("secret")) {
-            return true;
-        }
-        return false;
-    }
+	public boolean isSucceeded() {
+		return succeeded;
+	}
 
-    protected void onSuccess() {
-        JOptionPane.showMessageDialog(LoginDialog.this, "Hi " + getUsername() + "! You have successfully logged in.",
-                "Login Success", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0);
-    }
+	protected boolean authenticate(String username, String password) {
 
-    protected void onCancel() {
-        JOptionPane.showMessageDialog(LoginDialog.this, "Sorry to see you going.", "Login Cancel", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0);
-    }
+		if (username.equals("bob") && password.equals("secret")) {
+			return true;
+		}
+		return false;
+	}
 
-    protected void onInvalidCredentials() {
-        JOptionPane.showMessageDialog(LoginDialog.this, "Invalid username or password", "Invalid Login", JOptionPane.ERROR_MESSAGE);
-    }
+	protected void onSuccess() {
+		JOptionPane.showMessageDialog(LoginDialog.this, "Hi " + getUsername() + "! You have successfully logged in.",
+				"Login Success", JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
+	}
 
-    public static void main(String[] args) {
-        System.out.println("LoginDialog.main()");
-        LoginDialog d = new LoginDialog();
-        SwingUtilities.invokeLater(() -> d.setVisible(true));
-    }
+	protected void onCancel() {
+		JOptionPane.showMessageDialog(LoginDialog.this, "Sorry to see you going.", "Login Cancel",
+				JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
+	}
+
+	protected void onInvalidCredentials() {
+		JOptionPane.showMessageDialog(LoginDialog.this, "Invalid username or password", "Invalid Login",
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static void main(String[] args) {
+		System.out.println("LoginDialog.main()");
+		LoginDialog d = new LoginDialog();
+		SwingUtilities.invokeLater(() -> d.setVisible(true));
+	}
 }
